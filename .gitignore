@@ -1,0 +1,139 @@
+# Archivos de sistema operativo y editores
+.DS_Store
+.localized
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+.Trash-*
+.Spotlight-V100
+.TemporaryItems
+.com.apple.timemachine.donotpresent
+*.bak
+*.swp
+*.swo
+*~
+*.log
+*.tmp
+.idea/
+.vscode/
+.history/
+*.sublime-project
+*.sublime-workspace
+
+# Dependencias y artefactos de construcción
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+build/
+dist/
+out/
+.cache/
+.next/ # Para Next.js
+.nuxt/ # Para Nuxt.js
+public/build/ # A veces se usa para assets compilados
+coverage/
+temp/
+tmp/
+*.tgz # Archivos tarball de npm
+
+# Entornos virtuales de Python
+.venv/
+env/
+venv/
+*.pyc
+__pycache__/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Archivos de bases de datos
+*.sqlite
+*.db
+*.mdb
+*.pgsql
+*.sql.zip
+*.dump
+
+# Archivos de configuración sensibles (ejemplos)
+.env
+.env.*
+config/*.env
+config/*.ini
+config/*.json
+*.key
+*.pem
+*.pfx
+*.jks
+
+# Archivos de registro y de depuración
+npm-debug.log
+yarn-debug.log
+debug.log
+error.log
+nohup.out
+
+# IDEs y herramientas específicas
+.vs/ # Visual Studio
+*.suo
+*.user
+*.config.user
+*.resharper
+*.sln.docstates
+[Bb]in/
+[Oo]bj/
+
+# macOS (ya cubierto arriba, pero para ser explícito)
+.DS_Store
+
+# Windows (ya cubierto arriba, pero para ser explícito)
+Thumbs.db
+
+# Docker
+Dockerfile.bak
+docker-compose.yml.bak
+
+# Archivos comprimidos
+*.zip
+*.rar
+*.7z
+
+# Archivos de copias de seguridad
+*.bak
+*.orig
+*.old
+*.obj
+
+# Archivos multimedia generados (si no son parte del contenido del repositorio)
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.svg
+*.webp
+
+# Archivos de prueba
+/test-results/
+
+# Editor específico: JetBrains
+.idea/
+*.iml
+*.iws
+.project
+.classpath
+.settings/
+
+# Editor específico: VS Code
+.vscode/
+
+# Dependencias de Go
+/vendor/
+go
