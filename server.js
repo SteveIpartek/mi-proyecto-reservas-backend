@@ -6,15 +6,31 @@ const mongoose = require('mongoose');
 const cors = require('cors'); // Middleware para permitir peticiones desde tu frontend
 
 const app = express();
-const PORT = process.env.PORT || 3001; // Puerto por defecto o el definido en .env
-const MONGO_URI = process.env.MONGO_URI; // URI de conexión a MongoDB desde .env
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000'; // URL del frontend para CORS
+const PORT = process.env.PORT || 3001;
+const MONGO_URI = process.env.MONGO_URI;
 
-// Middleware
-app.use(cors({
-    origin: FRONTEND_URL, // Permitimos el acceso desde la URL de tu frontend
-    credentials: true // Si vas a usar cookies o sesiones (útil para futuras expansiones)
-}));
+// --- ✅ CONFIGURACIÓN DE CORS MEJORADA ---
+// Lista de los orígenes (dominios) que permitiremos conectar a nuestra API.
+const allowedOrigins = [
+    'http://localhost:3000',                        // Permitimos tu frontend en desarrollo local.
+    process.env.FRONTEND_URL                        // Permitimos la URL de tu frontend en Render (desde .env).
+];
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        // La lógica permite que los orígenes de nuestra lista y las peticiones sin origen (como las de Postman) pasen.
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+            callback(null, true);
+        } else {
+            callback(new Error('Acceso no permitido por CORS'));
+        }
+    },
+    credentials: true
+};
+
+app.use(cors(corsOptions)); // Usamos la nueva configuración de CORS.
+// --- FIN DE LA CONFIGURACIÓN DE CORS ---
+
 app.use(express.json()); // Permite a Express parsear cuerpos de petición JSON
 
 // Conexión a la base de datos MongoDB
@@ -29,15 +45,13 @@ mongoose.connect(MONGO_URI)
 // Definición e inclusión de rutas API
 // -------------------------------------------------------------------
 
-// Importar los archivos de rutas
 const propertyRoutes = require('./routes/propertyRoutes');
 const authRoutes = require('./routes/authRoutes');
-const bookingRoutes = require('./routes/bookingRoutes'); // <-- ¡IMPORTACIÓN DE BOOKINGROUTES AQUÍ!
+const bookingRoutes = require('./routes/bookingRoutes');
 
-// Usar las rutas con sus prefijos base
 app.use('/api/properties', propertyRoutes);
 app.use('/api/auth', authRoutes);
-app.use('/api/bookings', bookingRoutes); // <-- ¡USO DE BOOKINGROUTES AQUÍ!
+app.use('/api/bookings', bookingRoutes);
 
 
 // Ruta de prueba inicial para verificar que el servidor está funcionando
@@ -59,5 +73,5 @@ app.use((err, req, res, next) => {
 
 // Iniciar el servidor Express
 app.listen(PORT, () => {
-    console.log(`🚀 Servidor backend corriendo en ${FRONTEND_URL.replace('http://', 'http://api.')} o http://localhost:${PORT}`);
+    console.log(`🚀 Servidor backend corriendo en el puerto ${PORT}`);
 });
